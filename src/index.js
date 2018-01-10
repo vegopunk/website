@@ -12,7 +12,9 @@ import registerServiceWorker from './registerServiceWorker';
 import firebase from "firebase";
 import Auth from "./layouts/Auth"
 import Main from "./layouts/Main";
+import Admin from "./layouts/Admin";
 import './index.css';
+import Profile from "./layouts/Profile";
 
 var config = {
     apiKey: "AIzaSyCba2whI1BceSZk3-0rshWXKNocAUik6qk",
@@ -30,7 +32,9 @@ ReactDOM.render(
         <Switch>
             <Route exact path="/" render={({match}) => <Main firebase={firebase}/>}/>
             <Route path="/auth" render={({match}) => <Auth firebase={firebase}/>}/>
-            {/*<Redirect from='*' to='/'/>*/}
+            <Route path="/profile" render={({match}) => <Profile firebase={firebase}/>}/>
+            <Route path="/admin" render={({match}) => <Admin firebase={firebase}/>}/>
+            <Redirect from='*' to='/'/>
         </Switch>
     </Router>
     , document.getElementById('root'));

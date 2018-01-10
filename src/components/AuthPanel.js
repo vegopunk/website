@@ -35,9 +35,7 @@ class AuthPanel extends Component {
 
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                dbRef.child("users").child(user.uid).child("nickname").on('value' , snap => {
-                    console.log(snap.val())
-                });
+                window.location = "/";
             } else {
                 console.log("pls login man")
             }
@@ -54,7 +52,7 @@ class AuthPanel extends Component {
 
             auth.signInWithEmailAndPassword(email, password)
                 .then(function () {
-                    // window.location = "/";
+                    window.location = "/";
                     console.log("Success login")
                 })
                 .catch(function (error) {
@@ -83,13 +81,15 @@ class AuthPanel extends Component {
                         let object = new Object();
 
                         let uid = user.uid;
-                        let dictionaryValues = {email : email , pass : password, nickname: nickname};
+                        let status = {user : true};
+                        let dictionaryValues = {email : email , pass : password, nickname: nickname };
                         object[uid] = dictionaryValues;
+                        object[uid]["status"] = status;
 
                         firebase.database().ref().child('users').update(object)
                             .then(function () {
                                 console.log("Successfully saved user info to db")
-                                // window.location = "/"
+                                window.location = "/"
                             })
                             .catch(function (error) {
                                 console.log("Failed to save user info into db",error)

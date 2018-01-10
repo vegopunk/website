@@ -52,6 +52,6 @@ module.exports = {
         historyApiFallback: true,
         // contentBase: './',
         // hot: true
-    }
-
+    },
+    
 }

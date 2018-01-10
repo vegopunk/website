@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import AuthPanel from "../components/AuthPanel";
+import Preloader from "../components/Preloader";
 
 class Auth extends Component {
 
     render() {
         return(
             <div id="container">
-                {/*<Preloader/>*/}
+                <Preloader/>
                 <AuthPanel firebase={this.props.firebase}/>
             </div>
 
