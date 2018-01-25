@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    Redirect
-} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import '../styles/App.css';
-// import $ from 'jquery'
-// window.jQuery = $;
-// window.$ = $;
 require('bootstrap/dist/css/bootstrap.min.css')
 
 
@@ -27,11 +18,6 @@ class AuthPanel extends Component {
         const dbRef = firebase.database().ref();
         const loginBtn = document.getElementById('loginBtn');
         const signUpBtn = document.getElementById('signUpBtn');
-        const quit = document.getElementById('quit');
-
-        quit.addEventListener('click' , () => {
-            firebase.auth().signOut();
-        });
 
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
@@ -172,11 +158,9 @@ class AuthPanel extends Component {
                         </div>
                     </div>
                     <div className="col-md-6" style={{marginTop: "60px"}}>
-                        <a className="btn btn-box" >На главную</a>
+                        <Link to="/" className="btn btn-box" >На главную</Link>
                     </div>
-                    <div className="col-md-6" style={{marginTop: "60px"}}>
-                    <Link to="/" className="btn btn-box" id="quit" >Выйти</Link>
-                    </div>
+
 
                 </div>
         );

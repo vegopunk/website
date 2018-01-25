@@ -50,7 +50,8 @@
 
 .box-logo {
     display: block;
-    padding: 20px;
+    float: left;
+    padding: 22px;
 }
 
 .box-primary-nav-trigger {

@@ -2,12 +2,7 @@
  * Created by vegopunk on 22.12.2017.
  */
 import React , {Component} from 'react'
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Redirect
-} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import '../styles/Header.css';
 import $ from "jquery"
 
@@ -73,7 +68,8 @@ class Header extends Component{
         this.state = {
             logo : '',
             auth : false,
-            user : {}
+            user : {},
+            links : []
         };
 
     }
@@ -117,11 +113,26 @@ class Header extends Component{
             firebase.auth().signOut();
             $("html, body").animate({ opacity: 0, transition: "opacity 1000s ease" }, 900, function() {location.reload(); });
         });
+
+
+        let firebase = this.props.firebase;
+
+        firebase.database().ref("/titles/links").on("value" , snap => {
+            let links = [];
+            snap.forEach(function (link) {
+                links.push(link)
+            })
+            this.setState({
+                links: links
+            })
+        })
+
     }
 
     render(){
         var menuItem;
         var admin;
+        var logoLink;
 
         if (this.state.auth){
             // console.log(this.state.user.status.admin)
@@ -133,12 +144,18 @@ class Header extends Component{
             }
 
             menuItem = <div className="box-primary-nav-trigger">
+
                 <div className="box-menu-text">{this.state.user.nickname}</div><div className="box-menu-icon"></div>
             </div>
         } else {
-            menuItem = <div className="box-primary-nav-trigger"><Link to="/auth" className="box-menu-text">Login</Link></div>
+            menuItem = <div className="box-primary-nav-trigger"><Link to="/auth" className="box-menu-text">Login/SignUp</Link></div>
         }
 
+        if (window.location.pathname !== "/") {
+            logoLink = <Link to="/"><img src={this.state.logo} width="80"/></Link>
+        } else {
+            logoLink = <img src={this.state.logo} width="80"/>
+        }
 
 
         return(
@@ -147,11 +164,14 @@ class Header extends Component{
             <div className="container-fluid">
 
                 <header className="box-header">
-                    <div className="box-logo">
-                        <Link to="/"><img src={this.state.logo} width="80" /></Link>
+                    <div className="box-logo" >
+
+                        {logoLink}
+
                     </div>
                     {menuItem}
                 </header>
+
 
                 <nav>
                     <ul className="box-primary-nav">
@@ -164,12 +184,10 @@ class Header extends Component{
 
 
                         <li className="box-label">Подписывайтесь на наши ресурсы:</li>
+                        {this.state.links.map(link => <li key={link.key} ><a target="_blank" style={{color: "#9a9a9a"}} href={link.val()}>{link.key}</a></li>)}
 
-                        <li className="box-social"><a href="#0"><i className="ion-social-facebook"></i></a></li>
-                        <li className="box-social"><a href="#0"><i className="ion-social-instagram-outline"></i></a></li>
-                        <li className="box-social"><a href="#0"><i className="ion-social-twitter"></i></a></li>
-                        <li className="box-social"><a href="#0"><i className="ion-social-dribbble"></i></a></li>
                     </ul>
+
                 </nav>
 
 

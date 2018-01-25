@@ -3,11 +3,7 @@ import React, {Component} from 'react'
 import Intro from '../components/Intro'
 import Header from '../components/Header'
 import Preloader from '../components/Preloader'
-import $ from "jquery";
-
-// const confirmPassword  = document.getElementById('confirmPassword');
-// const loginButton  = document.getElementsByClassName('login');
-
+import Content from '../components/Content'
 
 class Main extends Component {
 
@@ -17,6 +13,7 @@ class Main extends Component {
                 <Preloader />
                 <Header firebase={this.props.firebase}/>
                 <Intro/>
+                <Content firebase={this.props.firebase}/>
             </div>
 
         )

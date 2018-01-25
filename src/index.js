@@ -15,6 +15,7 @@ import Main from "./layouts/Main";
 import Admin from "./layouts/Admin";
 import './index.css';
 import Profile from "./layouts/Profile";
+import CoursePage from "./layouts/CoursePage";
 
 var config = {
     apiKey: "AIzaSyCba2whI1BceSZk3-0rshWXKNocAUik6qk",
@@ -34,6 +35,7 @@ ReactDOM.render(
             <Route path="/auth" render={({match}) => <Auth firebase={firebase}/>}/>
             <Route path="/profile" render={({match}) => <Profile firebase={firebase}/>}/>
             <Route path="/admin" render={({match}) => <Admin firebase={firebase}/>}/>
+            <Route path="/course/:id" render={({match}) => <CoursePage firebase={firebase} uid={match.params.id}/>}/>
             <Redirect from='*' to='/'/>
         </Switch>
     </Router>

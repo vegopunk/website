@@ -21,7 +21,6 @@ class Admin extends Component {
         auth.onAuthStateChanged(user => {
             if (user) {
                 dbRef.child("users").child(user.uid).on('value' , snap => {
-                    console.log(snap.val());
                     let user = snap.val();
                     if (!user.status.admin) {
                         window.location = "/"

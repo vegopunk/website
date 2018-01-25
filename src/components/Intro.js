@@ -7,7 +7,7 @@ import $ from "jquery"
 
 
 //set animation timing
-var animationDelay = 5000,
+var animationDelay = 2000,
     //loading bar effect
     barAnimationDelay = 3800,
     barWaiting = barAnimationDelay - 3000, //3000 is the duration of the transition on the loading bar - set in the scss/css file
@@ -177,7 +177,7 @@ class Intro extends Component{
                         <b>Графика.</b>
                     </span>
                     </h1>
-                    <h5>все, что вам нужно для создания личного портфолио</h5>
+                    <h5>все, что нужно для создания личного портфолио</h5>
                 </div>
 
                 <div className="mouse">
