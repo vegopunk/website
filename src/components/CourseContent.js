@@ -105,13 +105,13 @@ class CourseContent extends Component {
                 })
                 }
             </div>
-            buy = <a href={this.state.sourceLink} className="btn btn-box" >Материалы</a>
+            buy = <a href={this.state.sourceLink} className="btn btn-box" style={{marginTop: "20px"}} >Материалы</a>
         } else{
             buy = <Link to="/auth" className="btn btn-box" >Посмотреть курс</Link>
         }
 
         return (
-            <div className="container main-container">
+            <div className="container main-container" >
                 <div className="container">
 
                     <div className="col-md-12" className="iframe-container">

@@ -12,13 +12,42 @@ class ProfilePanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user : {}
+            user : {},
+            verify: false
         }
     }
 
     componentDidMount() {
         const firebase = this.props.firebase;
         const dbRef = firebase.database().ref();
+        const verifyEmailBtn = document.getElementById('verifyEmail');
+        const newPasswordValue = document.getElementById('newPassword');
+        const changePasswordBtn = document.getElementById('changePassword');
+
+        verifyEmailBtn.addEventListener('click' , () => {
+            var user = firebase.auth().currentUser;
+
+            user.sendEmailVerification().then(function() {
+                // Email sent.
+                alert("A confirmation email was sent! Check your email.")
+            }).catch(function(error) {
+                // An error happened.
+                alert("Error when sending email. Please, try a few moments later.")
+            });
+        });
+
+        changePasswordBtn.addEventListener('click' , () => {
+            var user = firebase.auth().currentUser;
+            var newPassword = newPasswordValue.value;
+
+            user.updatePassword(newPassword).then(function() {
+                // Update successful.
+                alert("Update successful.")
+            }).catch(function(error) {
+                // An error happened.
+                alert("An error happened. Try later.")
+            });
+        });
 
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
@@ -27,6 +56,11 @@ class ProfilePanel extends Component {
                         user : snap.val()
                     })
                 });
+                if (user.emailVerified) {
+                    this.setState({
+                        verify: true
+                    })
+                }
             } else {
                 window.location = "/"
             }
@@ -34,25 +68,43 @@ class ProfilePanel extends Component {
     }
 
     render() {
+
+        let verify;
+        let verifyButton
+
+        if (this.state.verify) {
+            verify = <p style={{color: "green"}}>Подтвержден</p>
+        } else {
+            verify = <p style={{color: "red"}}>Не подтвержден</p>
+            verifyButton = <div className="col-md-12"><button className="btn btn-box" id="verifyEmail">Подтвердить</button></div>
+        }
+
         return (
             <div className="container main-container">
                 <h1>{this.state.user.nickname}</h1>
-                <div className="col-md-4" style={{border: "1px solid lightgray"}}>
+                <div className="col-md-4" style={{border: "1px solid lightgray", marginBottom: "0px"}}>
                     <div className="row">
                         <div className="col-md-12">
-                            <h5>Email:</h5>
-                            <div className="input-contact">
+                            <h5>Почта:</h5>
+                            <div className="input-contact" style={{marginBottom: "0px"}}>
                                 <span>{this.state.user.email}</span>
                             </div>
+                            {verify}
+                            {verifyButton}
                         </div>
                         <div className="col-md-12">
-                            <h5>Password:</h5>
+                            <h5>Сменить пароль:</h5>
                             <div className="input-contact">
-                                <span>{this.state.user.pass}</span>
+                                <input type="password" id="newPassword"/>
+                                <span>Новый пароль</span>
+                            </div>
+                            <div className="col-md-12" style={{marginBottom: "8px"}}>
+                                <button className="btn btn-box" id="changePassword">Изменить</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div className="col-md-2"/>
                 <div className="col-md-6" style={{ height: "200px"}}>
                     <iframe frameBorder="0"
                             allowtransparency="true"

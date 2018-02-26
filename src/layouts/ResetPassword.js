@@ -1,19 +1,19 @@
 import React, {Component} from 'react'
-import AuthPanel from "../components/AuthPanel";
 import Preloader from "../components/Preloader";
 import Header from "../components/Header";
+import ResetPasswordPanel from "../components/ResetPasswordPanel";
 
-class Auth extends Component {
+class ResetPassword extends Component {
 
     render() {
         return(
             <div id="container">
                 <Preloader/>
                 <Header firebase={this.props.firebase}/>
-                <AuthPanel firebase={this.props.firebase}/>
+                <ResetPasswordPanel firebase={this.props.firebase}/>
             </div>
 
         )
     }
 }
-export default Auth
+export default ResetPassword

@@ -148,7 +148,7 @@ class Header extends Component{
                 <div className="box-menu-text">{this.state.user.nickname}</div><div className="box-menu-icon"></div>
             </div>
         } else {
-            menuItem = <div className="box-primary-nav-trigger"><Link to="/auth" className="box-menu-text">Login/SignUp</Link></div>
+            menuItem = <div className="box-primary-nav-trigger"><Link to="/auth" className="box-menu-text">Авторизоваться</Link></div>
         }
 
         if (window.location.pathname !== "/") {

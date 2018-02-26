@@ -16,6 +16,8 @@ import Admin from "./layouts/Admin";
 import './index.css';
 import Profile from "./layouts/Profile";
 import CoursePage from "./layouts/CoursePage";
+import SignUp from "./layouts/SignUp";
+import ResetPassword from "./layouts/ResetPassword";
 
 var config = {
     apiKey: "AIzaSyCba2whI1BceSZk3-0rshWXKNocAUik6qk",
@@ -33,6 +35,8 @@ ReactDOM.render(
         <Switch>
             <Route exact path="/" render={({match}) => <Main firebase={firebase}/>}/>
             <Route path="/auth" render={({match}) => <Auth firebase={firebase}/>}/>
+            <Route path="/signup" render={({match}) => <SignUp firebase={firebase}/>}/>
+            <Route path="/resetPassword" render={({match}) => <ResetPassword firebase={firebase}/>}/>
             <Route path="/profile" render={({match}) => <Profile firebase={firebase}/>}/>
             <Route path="/admin" render={({match}) => <Admin firebase={firebase}/>}/>
             <Route path="/course/:id" render={({match}) => <CoursePage firebase={firebase} uid={match.params.id}/>}/>
